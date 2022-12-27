@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load humanize %}
+
+  <br><br><br>
+  <div class="col-12 col-md-6 offset-md-3">
+    <h1 style="text-align: center;">Productos</h1>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <a href="{% url 'agregarPrd' %}" class="btn btn-success btn-sm">Agregar</a>
+    </div>
+    {% for p in productos %}
+    <div class="card mb-3" >
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ p.imagen.url }}" class="img-fluid rounded-start" style="height: 100%;">
+          </div>
+          <div class="col-md-8">
+          
+            <div class="card-header">{{p.categoria_id | title}}</div>
+                <div class="card-body">
+                    <h2 class="card-title">{{p.titulo | title}}</h2>
+                    <p class="card-text">{{p.descripcion}}</p>
+                    <p class="card-text"><small class="text-muted">{{p.fecha_ingreso}}</small></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Precio: {{p.precio | intcomma}}</li>
+                </ul>
+                <div class="card-body">
+                   <a href="{% url 'modificarPrd' p.id %}" class="btn btn-info btn-sm">Modificar</a>
+                   <a href="{% url 'eliminacionLOGICA!' p.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+{% endblock %}
